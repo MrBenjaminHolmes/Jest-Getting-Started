@@ -1,4 +1,4 @@
-function encrypt(string) {
+function encrypt(string, shiftFactor) {
   const alphabet = [
     "a",
     "b",
@@ -27,14 +27,28 @@ function encrypt(string) {
     "y",
     "z",
   ];
+  const alphabetUpper = alphabet.map((char) => char.toUpperCase());
   let newString = [];
+
   [...string].forEach((char) => {
     if (alphabet.includes(char)) {
       let rotor = alphabet.indexOf(char);
-      if (rotor == 25) {
-        newString.push(alphabet[0]);
+      let newChar = rotor + shiftFactor;
+      if (newChar > 25) {
+        newChar = newChar - 26;
+        newString.push(alphabet[newChar]);
+      } else {
+        newString.push(alphabet[rotor + shiftFactor]);
       }
-      newString.push(alphabet[rotor + 1]);
+    } else if (alphabetUpper.includes(char)) {
+      let rotor = alphabetUpper.indexOf(char);
+      let newChar = rotor + shiftFactor;
+      if (newChar > 25) {
+        newChar = newChar - 26;
+        newString.push(alphabetUpper[newChar]);
+      } else {
+        newString.push(alphabetUpper[rotor + shiftFactor]);
+      }
     } else {
       newString.push(char);
     }
