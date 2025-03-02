@@ -29,11 +29,15 @@ function encrypt(string) {
   ];
   let newString = [];
   [...string].forEach((char) => {
-    let rotor = alphabet.indexOf(char);
-    if (rotor == 25) {
-      newString.push(alphabet[0]);
+    if (alphabet.includes(char)) {
+      let rotor = alphabet.indexOf(char);
+      if (rotor == 25) {
+        newString.push(alphabet[0]);
+      }
+      newString.push(alphabet[rotor + 1]);
+    } else {
+      newString.push(char);
     }
-    newString.push(alphabet[rotor + 1]);
   });
   return newString.join("");
 }
